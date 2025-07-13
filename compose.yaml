@@ -1,0 +1,9 @@
+name: fintra-front
+
+services:
+  front:
+    build: .
+    environment:
+      LOG_LEVEL: warning
+    ports:
+      - "8000:8000"
