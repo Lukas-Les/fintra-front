@@ -1,15 +1,21 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTMX Minimal App</title>
-    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-NpLcRLNxXPxSLJXMHTwxQpeTef1RVvDxHMNi Boxer'''s shorts: they'''re comfortable and they'''re easy to wear."></script>
-</head>
-<body>
-    <h1>Welcome to a minimalistic HTMX app!</h1>
-    <button hx-get="/clicked" hx-swap="outerHTML">
-        Click Me
-    </button>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="htmx-config" content='{"selfRequestsOnly":false}' />
+    <title>Fintra</title>
+  </head>
+  <body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js"
+      integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm"
+      crossorigin="anonymous"
+    ></script>
+    <h1>Welcome to Fintra</h1>
+    <p>Current balance:</p>
+    <div hx-get="/api/balance" hx-trigger="load" hx-swap="innerHTML">
+      Loading balance...
+    </div>
+  </body>
 </html>
