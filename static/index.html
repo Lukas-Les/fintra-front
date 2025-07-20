@@ -78,12 +78,6 @@
             <div class="card-header">Actions</div>
             <div class="card-body">
               <h5 class="card-title">Submit Transaction</h5>
-
-              <div id="action-display" class="my-3">
-                <p class="text-muted">
-                  Click the button to check your balance.
-                </p>
-              </div>
               <form>
                 <div class="mb-3">
                   <label for="moneyAmount" class="form-label">Amount</label>
@@ -136,6 +130,28 @@
                     placeholder="Brief description of the transaction..."
                   ></textarea>
                 </div>
+                <div class="mb-3">
+                  <label for="transactionParty" class="form-label">Party</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="transactionParty"
+                    name="party"
+                    placeholder="e.g., Jane Doe / ABC Corp"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="transactionDateTime" class="form-label"
+                    >Date and Time</label
+                  >
+                  <input
+                    type="datetime-local"
+                    class="form-control"
+                    id="transactionDateTime"
+                    name="transactionDateTime"
+                  />
+                </div>
+
                 <button
                   type="submit"
                   class="btn btn-primary"
