@@ -29,21 +29,16 @@
   </head>
   <body>
     <div class="d-flex align-items-center justify-content-center min-vh-100">
-      <form
-        data-np-autofill-form-type="login"
-        data-np-checked="1"
-        data-np-watching="1"
-      >
-        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+      <form hx-post="/api/login">
+        <h1 class="h3 mb-3 fw-normal">Please log in</h1>
         <div class="form-floating">
           <input
             type="email"
-            class="form-control"
-            id="floatingInput"
             placeholder="name@example.com"
-            data-np-autofill-field-type="username"
+            name="email"
+            id="floatingEmail"
           />
-          <label for="floatingInput">Email address</label>
+          <label for="floatingEmail">Email address</label>
           <nordpass-icon></nordpass-icon>
         </div>
         <div class="form-floating">
@@ -52,7 +47,7 @@
             class="form-control"
             id="floatingPassword"
             placeholder="Password"
-            data-np-autofill-field-type="password"
+            name="password"
           />
           <label for="floatingPassword">Password</label>
           <nordpass-icon></nordpass-icon>
