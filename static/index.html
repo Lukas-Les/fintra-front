@@ -78,7 +78,11 @@
             <div class="card-header">Actions</div>
             <div class="card-body">
               <h5 class="card-title">Submit Transaction</h5>
-              <form>
+              <form
+                hx-post="/api/transaction"
+                hx-target="#action-display"
+                hx-ext="json-enc"
+              >
                 <div class="mb-3">
                   <label for="moneyAmount" class="form-label">Amount</label>
                   <input
@@ -152,16 +156,11 @@
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  class="btn btn-primary"
-                  hx-post="/api/transaction"
-                  hx-target="#action-display"
-                  hx-ext="json-enc"
-                >
-                  Submit
-                </button>
+                <button type="submit" class="btn btn-primary">Submit</button>
               </form>
+              <div id="action-display" class="mt-3">
+                <!-- Response from transaction submission will be displayed here -->
+              </div>
             </div>
           </div>
         </div>
