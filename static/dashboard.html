@@ -28,12 +28,6 @@
     <title>Fintra</title>
   </head>
   <body>
-    <!-- This is the updated Mustache template.
-         It now only contains the {{balance}} placeholder inside an h3 tag. -->
-    <template id="balance-template">
-      <h3 class="text-success">{{balance}}</h3>
-    </template>
-
     <!-- Bootstrap container for layout -->
     <div class="container mt-5">
       <div class="row justify-content-center">
@@ -42,37 +36,23 @@
           <div class="card text-center shadow-sm-5 mb-3">
             <div class="card-header">Account Information</div>
             <div class="card-body">
-              <h5 class="card-title">Signed is as</h5>
-              <p id="username-display"></p>
-              <h5 class="card-title">Current Balance</h5>
+              <div class="row justify-content-center">
+                <div class="col-md-6">
+                  <h5 class="card-title">Signed is as</h5>
+                  <p id="username-display"></p>
+                </div>
 
-              <!-- 
-                            This div is now the target for the template rendering.
-                            - mustache-template: Links this div to the template with the matching id.
-                        -->
-              <div
-                id="balance-display"
-                mustache-template="balance-template"
-                class="my-3"
-                hx-get="/api/balance"
-                hx-trigger="load"
-              >
-                <p class="text-muted">
-                  Click the button to check your balance.
-                </p>
+                <div class="col-md-6">
+                  <button class="btn btn-danger" hx-post="/api/logout">
+                    Log out
+                  </button>
+                </div>
               </div>
 
-              <!-- 
-                            This button now fetches JSON.
-                            - hx-get: The URL now points to a resource that returns JSON.
-                                      We simulate this with a data URL. Replace with your "/api/balance".
-                            - hx-target: Still points to the display div. The extension handles the rest.
-                        -->
-              <button
-                class="btn btn-primary"
-                hx-get="/api/balance"
-                hx-target="#balance-display"
-              >
+              <h5 class="card-title">Current Balance</h5>
+
+              <div id="balance-display"></div>
+              <button id="balance-display-btn" class="btn btn-primary">
                 Fetch Balance
               </button>
             </div>
@@ -189,6 +169,31 @@
         }
       }
 
+      function getBalance() {
+        const balanceDisplay = document.getElementById("balance-display");
+
+        if (!balanceDisplay) {
+          console.error("Element with id 'balance-display' not found.");
+          return;
+        }
+
+        fetch("/api/balance")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then((data) => {
+            const balanceValue = data.balance;
+            // Assuming the balance should be displayed inside an h3 tag for styling
+            balanceDisplay.innerHTML = `<h3 class="text-success">${balanceValue}</h3>`;
+          })
+          .catch((error) => {
+            console.error("Error fetching balance:", error);
+            balanceDisplay.innerHTML = `<p class="text-danger">Failed to load balance.</p>`;
+          });
+      }
       // This code runs after the HTML page has fully loaded.
       window.onload = function () {
         // 1. Find the HTML element where we'll show the username.
@@ -201,6 +206,17 @@
         if (username) {
           // .textContent is safer than .innerHTML because it prevents malicious HTML code.
           displayElement.textContent = username;
+        }
+
+        // Call the new getBalance function to fetch balance on page load
+        getBalance();
+
+        // Attach getBalance to the button click event
+        const fetchBalanceButton = document.querySelector(
+          "button#balance-display-btn",
+        );
+        if (fetchBalanceButton) {
+          fetchBalanceButton.onclick = getBalance;
         }
       };
     </script>
